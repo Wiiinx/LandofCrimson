@@ -4,6 +4,7 @@ import { UserData } from '../types';
 import { CITY_INFO } from '../data/world';
 import { NeonButton } from '../components/SharedUI';
 import { MapPin, Navigation, Locate, AlertTriangle, Plane, Lock, Globe, Plus, Minus, Maximize, Scan, X } from 'lucide-react';
+import mapBg from '../components/cirmson_map.png';
 
 interface MapTabProps {
   currentUser: UserData | null;
@@ -17,35 +18,36 @@ const MAP_HEIGHT = 1440;
 const CITIES = [
   // Northern Region
   { name: '白鲸市', x: 1864, y: 358, region: 'northern', level: 3, risk: 'HIGH' },
+  { name: '临荫市', x: 1680, y: 418, region: 'northern', level: 2, risk: 'LOW' },
   
   // Western Wasteland / Gap Fillers
-  { name: '赤余市', x: 500, y: 900, region: 'western', level: 3, risk: 'HIGH' },
-  { name: '蓝柯市', x: 750, y: 800, region: 'western', level: 2, risk: 'MED' },
-  { name: '多玛市', x: 216, y: 1001, region: 'wasteland', level: 4, risk: 'EXTREME' },
+
+  { name: '蓝柯市', x: 1044, y: 654, region: 'western', level: 2, risk: 'MED' },
+  { name: '多玛市', x: 616, y: 800, region: 'wasteland', level: 4, risk: 'EXTREME' },
 
   // Central Federation
-  { name: '联邦行政中心', x: 1044, y: 654, region: 'central', level: 1, risk: 'LOW' },
-  { name: '浮岗市', x: 1561, y: 715, region: 'central', level: 2, risk: 'MED' },
-  { name: '鸣山市', x: 1733, y: 615, region: 'central', level: 2, risk: 'MED' },
+  { name: '联邦行政中心', x: 1544, y: 535, region: 'central', level: 3, risk: 'MED' },
+  { name: '浮岗市', x: 1620, y: 605, region: 'central', level: 2, risk: 'LOW' },
+  { name: '鸣山市', x: 1700, y: 605, region: 'central', level: 2, risk: 'LOW' },
+  { name: '黑海市', x: 1561, y: 715, region: 'central', level: 1, risk: 'HIGH' },
+  // Eastern
+
+{ name: '赤余市', x: 2250, y: 710, region: 'eastern', level: 3, risk: 'HIGH' },
   
-  // Coastal
-  { name: '黑海市', x: 1494, y: 608, region: 'coastal', level: 1, risk: 'HIGH' },
-  { name: '临荫市', x: 2298, y: 738, region: 'coastal', level: 2, risk: 'LOW' },
+
 ];
 
 // Connection Routes for Dashed Lines
 const ROUTES = [
-    ['多玛市', '赤余市'],
-    ['赤余市', '蓝柯市'],
-    ['蓝柯市', '联邦行政中心'],
-    ['联邦行政中心', '黑海市'],
-    // ['联邦行政中心', '浮岗市'], // REMOVED
+    ['黑海市', '联邦行政中心'],
     ['黑海市', '浮岗市'],
-    ['浮岗市', '鸣山市'],
-    ['鸣山市', '白鲸市'],
-    ['鸣山市', '临荫市'],
-    // ['黑海市', '临荫市'], // REMOVED
-    ['黑海市', '白鲸市'] // ADDED
+    ['联邦行政中心', '蓝柯市'],
+    ['蓝柯市', '多玛市'],
+    ['黑海市', '蓝柯市'],
+    ['联邦行政中心', '临荫市'],
+    ['临荫市', '白鲸市'],
+    ['白鲸市', '鸣山市'],
+    ['白鲸市', '赤余市']
 ];
 
 export const MapTab: React.FC<MapTabProps> = ({ currentUser, handleTravel }) => {
@@ -174,7 +176,7 @@ export const MapTab: React.FC<MapTabProps> = ({ currentUser, handleTravel }) => 
          >
             {/* World Background Image */}
             <img 
-              src="/map.jpg" 
+              src={mapBg}
               alt="World Map" 
               className="absolute top-0 left-0 w-[2560px] h-[1440px] object-cover opacity-60 pointer-events-none" 
               draggable={false}
@@ -196,10 +198,10 @@ export const MapTab: React.FC<MapTabProps> = ({ currentUser, handleTravel }) => 
                         <line 
                             key={i} 
                             x1={s.x} y1={s.y} x2={e.x} y2={e.y} 
-                            stroke="#52525b" // zinc-600
+                            stroke="#facc15" // yellow-400
                             strokeWidth="2" 
                             strokeDasharray="8 8" 
-                            className="opacity-40"
+                            className="opacity-80"
                         />
                     );
                 })}
